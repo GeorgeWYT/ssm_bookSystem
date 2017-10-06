@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flight.hisen.dao.BookDao">
+
+    <select id="queryById" resultType="Book" parameterType="long">
+        SELECT
+    book_id,
+    name,
+    number,
+    detail
+    FROM
+    book
+    WHERE
+    book_id = #{bookId}
+    </select>
+
+    <select id="queryAll" resultType="Book">
+        SELECT
+        book_id,
+        name,
+        number,
+        detail
+        FROM
+        book
+        ORDER BY
+        book_id
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <update id="updateBook" parameterType="Book">
+        UPDATE
+        book
+        set
+        name = #{name},
+        number = #{number},
+        detail = #{detail}
+        WHERE
+        book_id = #{bookId}
+        AND
+        number > 0
+    </update>
+
+    <insert id="addBook">
+        INSERT INTO
+        book(`book_id`, `name`, `number`, `detail`)
+        VALUES(#{bookId}, #{name}, #{number}, #{detail})
+    </insert>
+
+    <delete id="deleteBookById">
+    DELETE FROM
+    book
+    WHERE
+    book_id = #{bookId}
+    </delete>
+
+    <select id="countNum" resultType="java.lang.Integer">
+        SELECT
+        COUNT(*)
+        FROM
+        book
+    </select>
+</mapper>
